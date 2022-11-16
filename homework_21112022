@@ -3,13 +3,11 @@ import random
 
 def retry(attempts=5, desired_value=None):
     def wrapper(func):
-        def inner(*args):
-            checker = 0
+        def inner(*args, **kwargs):
             for counter in range(attempts):
-                test_result = func(*args)
-                checker += 1
+                test_result = func(*args, **kwargs)
                 if test_result == desired_value:
-                    success = f'Success! After {checker} attempts. Desired value: {desired_value}.'
+                    success = f'Success! After {counter} attempts. Desired value: {desired_value}.'
                     return success
             return 'The desired value could not be reached'
         return inner
