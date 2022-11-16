@@ -1,0 +1,26 @@
+import random
+
+
+def retry(attempts=5, desired_value=None):
+    def wrapper(func):
+        def inner(*args):
+            checker = 0
+            for counter in range(attempts):
+                test_result = func(*args)
+                checker += 1
+                if test_result == desired_value:
+                    success = f'Success! After {checker} attempts. Desired value: {desired_value}.'
+                    return success
+            return 'The desired value could not be reached'
+        return inner
+    return wrapper
+
+
+@retry(attempts=30, desired_value=2)
+def get_random_value():
+    return random.choice((1, 2, 3, 4, 5))
+
+
+@retry(attempts=2, desired_value=[1, 2, 3])
+def get_random_values(choices, size=2):
+    return random.choices(choices, k=size)
