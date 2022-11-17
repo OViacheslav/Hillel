@@ -10,7 +10,9 @@ def retry(attempts=5, desired_value=None):
                     success = f'Success! After {counter} attempts. Desired value: {desired_value}.'
                     return success
             return 'The desired value could not be reached'
+
         return inner
+
     return wrapper
 
 
@@ -22,3 +24,20 @@ def get_random_value():
 @retry(attempts=2, desired_value=[1, 2, 3])
 def get_random_values(choices, size=2):
     return random.choices(choices, k=size)
+
+
+def print_square(n):
+    c = n - 2
+    print(n * '* ')
+
+    def inner_sides():
+        nonlocal c
+        if c == 0:
+            return
+        result = '*' + ((n - 2) * '  ') + ' *'
+        print(result)
+        c -= 1
+        inner_sides()
+    if n > 1:
+        inner_sides()
+        print(n * '* ')
