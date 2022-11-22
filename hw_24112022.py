@@ -1,6 +1,6 @@
 LONG_TEXT = """asdlknfasldkmfasdfasdf"""
 list_of_words = []
-# тест
+
 
 def add_word(word):
     list_of_words.append(word)
@@ -21,15 +21,20 @@ def get_words(chars='', amount_of_words=5):
 
 
 def crop_text(length):
-    result = ''
     start_index = 0
-    last_index = length
+    finish_index = length
     max_index = len(LONG_TEXT)
-    while last_index < max_index:
-        yield LONG_TEXT[start_index:last_index]
+    while finish_index < max_index:
+        yield LONG_TEXT[start_index:finish_index]
         start_index += length
-        last_index += length
-    return LONG_TEXT[start_index:]
+        finish_index += length
+    if max_index < finish_index:
+        finish_index = max_index
+        yield LONG_TEXT[start_index:max_index]
+    if max_index == finish_index:
+        while True:
+            yield 'No data to receive'
+    return
 
 
 if __name__ == '__main__':
