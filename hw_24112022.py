@@ -1,6 +1,6 @@
 LONG_TEXT = """asdlknfasldkmfasdfasdf"""
 list_of_words = []
-
+# тест
 
 def add_word(word):
     list_of_words.append(word)
