@@ -1,0 +1,46 @@
+import os
+import sys
+
+
+def addition(first_number, second_number):
+    return first_number + second_number
+
+
+def subtraction(first_number, second_number):
+    return first_number - second_number
+
+
+def multiplication(first_number, second_number):
+    return first_number * second_number
+
+
+def division(first_number, second_number):
+    return first_number / second_number
+
+
+if __name__ == '__main__':
+    args = sys.argv[1:]
+    if len(args) != 2:
+        sys.exit(2)
+
+    for arg in args:
+        if not arg.isdecimal():
+            sys.exit(2)
+
+    functions = {
+        'addition': addition,
+        'subtraction': subtraction,
+        'multiplication': multiplication,
+        'division': division
+    }
+
+    if 'FUNCTION' in os.environ:
+        if os.getenv('FUNCTION') not in functions:
+            sys.exit(2)
+        else:
+            fir_number, sec_number = args
+            a = functions.get(os.getenv('FUNCTION'))
+            print(a(int(fir_number), int(sec_number)))
+    else:
+        fir_number, sec_number = args
+        print(addition(int(fir_number), int(sec_number)))
